@@ -1,6 +1,9 @@
+import random
+
+from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseServerError
-from django.shortcuts import render
-from django.shortcuts import render
+
+from tours.data import tours
 
 
 def custom_handler404(request, exception):
@@ -14,14 +17,30 @@ def custom_handler500(request):
 
 def MainView(request):
     """ Главная """
-    return render(request, 'index.html')
+
+    # Туры
+    # забираем доступные ключи словарей
+    tours_random = []
+    for key in tours.keys():
+        tours_random.append(key)
+
+    # перемешиваем список ключей
+    random.shuffle(tours_random)
+
+    # формируем список словарей
+    tours_dict = dict()
+    for number in tours_random[:6]:
+        tours_dict[number] = tours[number]
+
+    return render(request, 'index.html', {'tours': tours_dict})
 
 
-def DepartureView(request):
+def DepartureView(request, departure):
     """ Направление """
-    return render(request, 'departure.html')
+    return render(request, 'departure.html', tours)
 
 
-def TourView(request):
+def TourView(request, id):
     """ Тур """
-    return render(request, 'tour.html')
+    tour = tours.get(id)
+    return render(request, 'tour.html', tour)
