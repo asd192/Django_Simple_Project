@@ -1,1 +1,1 @@
-web: gunicorn wsgi.py
+web: gunicorn web: gunicorn stepik_tours.wsgi
