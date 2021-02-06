@@ -1,3 +1,4 @@
 db.sqlite3
 /tours/tests.py
 /tours/templates/my_test.html
+/venv/

@@ -53,7 +53,6 @@ def departure_view(request, departure):
 
     # информация о найденых турах
     fly_from = data.departures[departure].split()[-1]
-
     info = {'count': tours_count, 'price_min': min(price), 'price_max': max(price), 'night_min': min(night),
             'night_max': max(night), 'tour_end': tour_end}
 
@@ -72,7 +71,7 @@ def tour_view(request, id):
 def custom_handler404(request, exception):
     return HttpResponseNotFound(
         '<div align="center" style="margin-top: 10%; color: #29486f;"><div style="background: #eff7ff; \
-        padding-top: 30px;"><h1>Ошибка 404</h1><h3>такой страницы не существует</h3></div><div> \
+        padding-top: 30px; padding-bottom: 30px"><h1>Ошибка 404</h1><h3>такой страницы не существует</h3></div><div> \
         <p>Хотите перейти на главную?</p><p><a href="/"><<< Хочу! >>></a></p></div></div>')
 
 
