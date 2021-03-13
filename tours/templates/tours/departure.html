@@ -1,6 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'tours/base.html' %}
 
 {% block container %}
+
+    <style type="text/css">
+        .tour_photo {
+            object-fit: cover;
+            height: 180px;
+        }
+    </style>
 
     <main class="container mt-3">
         <h1 class="display-5 mt-4">Летим из {{ fly_from }}</h1>
@@ -14,10 +21,10 @@
 
                 <div class="col-4">
                     <div class="card mb-4">
-                        <img src="{{ departure.picture }}" class="card-img-top img-fluid" alt="{{ departure.title }}">
+                        <img src="{{ departure.picture }}" class="card-img-top img-fluid tour_photo" alt="{{ departure.title }}">
                         <div class="card-body">
                             <h2 class="h5 card-title">{{ departure.title }}</h2>
-                            <p class="card-text">{{ departure.description|truncatechars:100 }}</p>
+                            <p class="card-text">{{ departure.description|truncatechars:90 }}</p>
                             <a href="/tour/{{ key }}" class="btn btn-sm btn-primary">Подробнее</a>
                         </div>
                     </div>

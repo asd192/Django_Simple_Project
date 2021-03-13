@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'tours/base.html' %}
 
 {% block container %}
 
     <main class="container mt-3">
         <!-- HERO -->
         <section class="jumbotron text-center mt-4"
-                 style="background: url('https://place-hold.it/1600x300'); background-position: center center">
-            <h1 class="display-4">{{ about.title }}</h1>
+                 style="background: url('https://images2-mega.mdstrm.com/mundoh/2017/07/19/495_18_596fe4435c3e8.jpeg?d=1100x370') no-repeat; background-position: center center; color: white">
+            <h1 class="display-3 font-monospace">{{ about.title }}</h1>
             <p class="lead">{{ about.subtitle }}</p>
             <p class="mt-5 w-50 mx-auto">{{ about.description }}</p>
         </section>
@@ -22,8 +22,8 @@
                                  alt="{{ tour.title }}"/>
                         </div>
                         <div class="card-body">
-                            <h2 class="h5 card-title">{{ tour1.title }}</h2>
-                            <p class="card-text">{{ tour.description|truncatechars:100 }}</p>
+                            <h2 class="h5 card-title">{{ tour.title }}</h2>
+                            <p class="card-text">{{ tour.description|truncatechars:80 }}</p>
                             <a href="/tour/{{ key }}/" class="btn btn-sm btn-primary">Подробнее</a>
                         </div>
                     </div>

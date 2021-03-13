@@ -22,9 +22,13 @@ def main_view(request):
     for number in tours_random[:6]:
         tours_dict[number] = data.tours[number]
 
-    about = {'title': data.title, 'subtitle': data.subtitle, 'description': data.description}
+    about = {
+        'title': data.title,
+        'subtitle': data.subtitle,
+        'description': data.description
+    }
 
-    return render(request, 'index.html', {'menu_header': data.departures, 'about': about, 'tours': tours_dict})
+    return render(request, 'tours/index.html', {'menu_header': data.departures, 'about': about, 'tours': tours_dict})
 
 
 def departure_view(request, departure):
@@ -44,28 +48,55 @@ def departure_view(request, departure):
     tours_count = len(tours_dict)
 
     # окончание тур[а, ов]
-    if str(tours_count)[-1] in ('2', '3', '4'):
-        tour_end = 'а'
-    elif str(tours_count)[-1] in '1':
+    if (int(tours_count) % 10) == 1 and (int(tours_count) % 100) != 11:
         tour_end = ''
+    elif 2 <= (int(tours_count) % 10) <= 4 and ((int(tours_count) // 10) % 10) != 1:
+        tour_end = 'а'
     else:
         tour_end = 'ов'
 
     # информация о найденых турах
     fly_from = data.departures[departure].split()[-1]
-    info = {'count': tours_count, 'price_min': min(price), 'price_max': max(price), 'night_min': min(night),
-            'night_max': max(night), 'tour_end': tour_end}
 
-    return render(request, 'departure.html', {'menu_header': data.departures, 'departures': tours_dict, 'info': info,
-                                              'fly_from': fly_from})
+    info = {
+        'count': tours_count,
+        'price_min': min(price),
+        'price_max': max(price),
+        'night_min': min(night),
+        'night_max': max(night),
+        'tour_end': tour_end
+    }
+
+    context = {'menu_header': data.departures,
+               'departures': tours_dict,
+               'info': info,
+               'fly_from': fly_from}
+
+    return render(request, 'tours/departure.html', context=context)
 
 
-def tour_view(request, id):
+def tour_view(request, id_tour):
     """ Тур """
-    tour = data.tours.get(id, False)
+    tour = data.tours.get(id_tour, False) or False
+
     if not tour:
         return custom_handler404(request, exception=404)
-    return render(request, 'tour.html', {'menu_header': data.departures, 'tour': tour})
+
+    if (int(tour['nights']) % 10) == 1 and (int(tour['nights']) % 100) != 11:
+        nights_end = 'ь'
+    elif 2 <= (int(tour['nights']) % 10) <= 4 and ((int(tour['nights']) // 10) % 10) != 1:
+        nights_end = 'и'
+    else:
+        nights_end = 'ей'
+
+    tour_to_where = data.departures[tour['departure']]
+
+    context = {'menu_header': data.departures,
+               'tour': tour,
+               'tour_to_where': tour_to_where,
+               'nights_end': nights_end}
+
+    return render(request, 'tours/tour.html', context=context)
 
 
 def custom_handler404(request, exception):
