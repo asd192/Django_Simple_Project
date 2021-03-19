@@ -9,12 +9,8 @@ import tours.data as data
 def main_view(request):
     """ Главная """
 
-    # забираем доступные ключи словарей
-    tours_random = []
-    for key in data.tours.keys():
-        tours_random.append(key)
-
-    # перемешиваем список ключей
+    # перемешиваем доступные ключи словарей
+    tours_random = list(data.tours.keys())
     random.shuffle(tours_random)
 
     # формируем список словарей
