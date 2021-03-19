@@ -1,7 +1,7 @@
 import random
 
-from django.shortcuts import render
 from django.http import HttpResponseNotFound, HttpResponseServerError
+from django.shortcuts import render
 
 import tours.data as data
 
@@ -22,13 +22,15 @@ def main_view(request):
     for number in tours_random[:6]:
         tours_dict[number] = data.tours[number]
 
-    about = {
-        'title': data.title,
-        'subtitle': data.subtitle,
-        'description': data.description
-    }
+    about = {'title': data.title,
+             'subtitle': data.subtitle,
+             'description': data.description}
 
-    return render(request, 'tours/index.html', {'menu_header': data.departures, 'about': about, 'tours': tours_dict})
+    context = {'menu_header': data.departures,
+               'about': about,
+               'tours': tours_dict}
+
+    return render(request, 'tours/index.html', context=context)
 
 
 def departure_view(request, departure):
@@ -47,25 +49,14 @@ def departure_view(request, departure):
 
     tours_count = len(tours_dict)
 
-    # окончание тур[а, ов]
-    if (int(tours_count) % 10) == 1 and (int(tours_count) % 100) != 11:
-        tour_end = ''
-    elif 2 <= (int(tours_count) % 10) <= 4 and ((int(tours_count) // 10) % 10) != 1:
-        tour_end = 'а'
-    else:
-        tour_end = 'ов'
-
     # информация о найденых турах
     fly_from = data.departures[departure].split()[-1]
 
-    info = {
-        'count': tours_count,
-        'price_min': min(price),
-        'price_max': max(price),
-        'night_min': min(night),
-        'night_max': max(night),
-        'tour_end': tour_end
-    }
+    info = {'count': tours_count,
+            'price_min': min(price),
+            'price_max': max(price),
+            'night_min': min(night),
+            'night_max': max(night)}
 
     context = {'menu_header': data.departures,
                'departures': tours_dict,
@@ -82,19 +73,11 @@ def tour_view(request, id_tour):
     if not tour:
         return custom_handler404(request, exception=404)
 
-    if (int(tour['nights']) % 10) == 1 and (int(tour['nights']) % 100) != 11:
-        nights_end = 'ь'
-    elif 2 <= (int(tour['nights']) % 10) <= 4 and ((int(tour['nights']) // 10) % 10) != 1:
-        nights_end = 'и'
-    else:
-        nights_end = 'ей'
-
     tour_to_where = data.departures[tour['departure']]
 
     context = {'menu_header': data.departures,
                'tour': tour,
-               'tour_to_where': tour_to_where,
-               'nights_end': nights_end}
+               'tour_to_where': tour_to_where}
 
     return render(request, 'tours/tour.html', context=context)
 

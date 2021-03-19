@@ -22,8 +22,7 @@
             <ul class="navbar-nav">
 
                 {% for url, sity in menu_header.items %}
-
-                    <li class="nav-item{% if url in request.path %} active{% endif %}">
+                    <li class="nav-item{% if url == request.path %} active{% endif %}">
                         <a class="nav-link" href="/departure/{{ url }}/">{{ sity }}</a>
                     </li>
                 {% endfor %}

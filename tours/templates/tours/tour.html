@@ -1,5 +1,5 @@
 {% extends 'tours/base.html' %}
-
+{% load ru_pluralize %}
 {% block container %}
 
     <main class="container">
@@ -8,7 +8,7 @@
                 ★★☆☆☆{% elif tour.stars == '3' %}
                 ★★★☆☆{% elif tour.stars == '4' %}★★★★☆{% elif tour.stars == '5' %}★★★★★{% endif %}</h1>
             <!-- HERO -->
-            <p class="lead">{{ tour.country }} {{ tour_to_where }} на {{ tour.nights }} ноч{{ nights_end }}</p>
+            <p class="lead">{{ tour.country }} {{ tour_to_where }} на {{ tour.nights|ru_pluralize:'ночь, ночи, ночей' }}</p>
             <img src="{{ tour.picture }}" class="w-75" alt="title">
             <p class="my-4 w-75">{{ tour.description }}</p>
             <a href="https://travel.yandex.ru/hotels" class="btn btn-success btn-lg" target="_blank">Купить тур за {{ tour.price }}</a>
