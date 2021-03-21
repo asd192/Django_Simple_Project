@@ -85,4 +85,3 @@ def custom_handler404(request, exception):
 
 def custom_handler500(request):
     return HttpResponseServerError(render(request, '500.html'))
-
