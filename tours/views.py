@@ -1,6 +1,6 @@
 import random
 
-from django.http import HttpResponseNotFound, HttpResponseServerError
+from django.http import Http404, HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import render
 
 import tours.data as data
@@ -32,7 +32,7 @@ def main_view(request):
 def departure_view(request, departure):
     """ Направления """
     if departure not in data.departures.keys():
-        return custom_handler404(request, exception=404)
+        raise Http404
 
     tours_dict, price, night = dict(), [], []
     for key, value in data.tours.items():
@@ -67,7 +67,7 @@ def tour_view(request, id_tour):
     tour = data.tours.get(id_tour, False) or False
 
     if not tour:
-        return custom_handler404(request, exception=404)
+        raise Http404
 
     tour_to_where = data.departures[tour['departure']]
 
