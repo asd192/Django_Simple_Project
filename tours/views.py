@@ -65,7 +65,7 @@ def departure_view(request, departure):
 
 def tour_view(request, id_tour):
     """ Тур """
-    tour1 = data.tours.get(id_tour, False) or False
+    tour = data.tours.get(id_tour, False) or False
 
     if not tour:
         raise Http404
