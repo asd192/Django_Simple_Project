@@ -1,5 +1,6 @@
 {% extends 'tours/base.html' %}
 {% load ru_pluralize %}
+
 {% block container %}
 
     <main class="container">
@@ -7,11 +8,7 @@
             <div style="display: inline-block">
                 <h1 class="display-3 mt-4">{{ tour.title }}</h1>
                 <div style="color: #d4492a; font-size: xx-large;">
-                    {% if stars == '1' %}★☆☆☆☆
-                    {% elif stars == '2' %}★★☆☆☆
-                    {% elif tour.stars == '3' %}★★★☆☆
-                    {% elif tour.stars == '4' %}★★★★☆
-                    {% elif tour.stars == '5' %}★★★★★{% endif %}
+                    {{ tour.stars|hotel_stars }}
                 </div>
             </div>
             <!-- HERO -->

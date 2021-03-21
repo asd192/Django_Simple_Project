@@ -1,4 +1,5 @@
 {% extends 'tours/base.html' %}
+{% load ru_pluralize %}
 
 {% block container %}
 
@@ -23,12 +24,9 @@
                         </div>
                         <div class="card-body">
                             <h2 class="h5 card-title">{{ tour.title }}</h2>
-                            <p style="color: #d4492a; font-size: 18px;">{% if stars == '1' %}★☆☆☆☆
-                            {% elif stars == '2' %}★★☆☆☆
-                            {% elif tour.stars == '3' %}★★★☆☆
-                            {% elif tour.stars == '4' %}★★★★☆
-                            {% elif tour.stars == '5' %}★★★★★
-                            {% endif %}</p>
+                            <p style="color: #d4492a; font-size: 18px;">
+                                {{ tour.stars|hotel_stars }}
+                            </p>
                             <p class="card-text">{{ tour.description|truncatechars:80 }}</p>
                             <a href="/tour/{{ key }}/" class="btn btn-sm btn-primary">Подробнее</a>
                         </div>
