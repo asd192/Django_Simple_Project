@@ -80,9 +80,9 @@ def tour_view(request, id_tour):
 
 def custom_handler404(request, exception):
     return HttpResponseNotFound(
-        '<div align="center" style="margin-top: 10%; color: #29486f;"><div style="background: #eff7ff; \
-        padding-top: 30px; padding-bottom: 30px"><h1>Ошибка 404</h1><h3>такой страницы не существует</h3></div><div> \
-        <p>Хотите перейти на главную?</p><p><a href="/"><<< Хочу! >>></a></p></div></div>')
+        '''<div align="center" style="margin-top: 10%; color: #29486f;"><div style="background: #eff7ff;
+        padding-top: 30px; padding-bottom: 30px"><h1>Ошибка 404</h1><h3>такой страницы не существует</h3></div><div>
+        <p>Хотите перейти на главную?</p><p><a href="/"><<< Хочу! >>></a></p></div></div>''')
 
 
 def custom_handler500(request):
