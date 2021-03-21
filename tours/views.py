@@ -35,18 +35,19 @@ def departure_view(request, departure):
         raise Http404
 
     tours_dict, price, night = dict(), [], []
-    for key, value in data.tours.items():
-        if data.tours[key]['departure'] == departure:
-            tours_dict[key] = value
+    for num, tour in data.tours.items():
+        if data.tours[num]['departure'] == departure:
+            tours_dict[num] = tour
 
             # прайс и ночи, от и до
-            price.append(int(value['price']))
-            night.append(int(value['nights']))
+            price.append(int(tour['price']))
+            night.append(int(tour['nights']))
 
     tours_count = len(tours_dict)
 
     # информация о найденых турах
-    fly_from = data.departures[departure].split()[-1]
+    fly_from = data.departures[departure]
+    print(fly_from)
 
     info = {'count': tours_count,
             'price_min': min(price),
@@ -64,7 +65,7 @@ def departure_view(request, departure):
 
 def tour_view(request, id_tour):
     """ Тур """
-    tour = data.tours.get(id_tour, False) or False
+    tour1 = data.tours.get(id_tour, False) or False
 
     if not tour:
         raise Http404
@@ -79,12 +80,9 @@ def tour_view(request, id_tour):
 
 
 def custom_handler404(request, exception):
-    return HttpResponseNotFound(
-        '''<div align="center" style="margin-top: 10%; color: #29486f;"><div style="background: #eff7ff;
-        padding-top: 30px; padding-bottom: 30px"><h1>Ошибка 404</h1><h3>такой страницы не существует</h3></div><div>
-        <p>Хотите перейти на главную?</p><p><a href="/"><<< Хочу! >>></a></p></div></div>''')
+    return HttpResponseNotFound(render(request, '404.html'))
 
 
 def custom_handler500(request):
-    return HttpResponseServerError(
-        '<div align="center"><p><h1>Ошибка 500</h1></p><p><h2>Ошибка на сервере</h2></p></div>')
+    return HttpResponseServerError(render(request, '500.html'))
+
