@@ -14,7 +14,7 @@
         <!-- CARDS -->
         <div class="row mt-5">
 
-            {% for key, tour in tours.items %}
+            {% for num, tour in tours.items %}
 
                 <div class="col-4">
                     <div class="card mb-4">
@@ -28,7 +28,7 @@
                                 {{ tour.stars|hotel_stars }}
                             </p>
                             <p class="card-text">{{ tour.description|truncatechars:80 }}</p>
-                            <a href="/tour/{{ key }}/" class="btn btn-sm btn-primary">Подробнее</a>
+                            <a href="{% url 'tour' num %}" class="btn btn-sm btn-primary">Подробнее</a>
                         </div>
                     </div>
                 </div>

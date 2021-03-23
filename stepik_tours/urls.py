@@ -24,7 +24,7 @@ handler404 = custom_handler404
 handler500 = custom_handler500
 
 urlpatterns = [
-    path('', main_view),
-    path('departure/<str:departure>/', departure_view),
-    path('tour/<int:id_tour>/', tour_view),
+    path('', main_view, name='main'),
+    path('departure/<str:departure>/', departure_view, name='departure'),
+    path('tour/<int:id_tour>/', tour_view, name='tour'),
 ]

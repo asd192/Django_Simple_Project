@@ -12,13 +12,13 @@
 
     <main class="container mt-3">
         <h1 class="display-5 mt-4">Летим {{ fly_from }}</h1>
-        <p class="mb-4">Найдено {{ info.count|ru_pluralize:'тур, тура, туров' }}, от {{ info.price_min }} до {{ info.price_max }}
+        <p class="mb-4">Найдено {{ info.tours_count|ru_pluralize:'тур, тура, туров' }}, от {{ info.price_min }} до {{ info.price_max }}
             и от {{ info.night_min }} {% if info.night_min != 1 %}ночей{% else %}ночи{% endif %} до {{ info.night_max }}
             {% if info.night_max != 1 %}ночей{% else %}ночи{% endif %}</p>
         <!-- CARDS -->
         <div class="row mt-5">
 
-            {% for key, departure in departures.items %}
+            {% for num, departure in departures.items %}
 
                 <div class="col-4">
                     <div class="card mb-4">
@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <h2 class="h5 card-title">{{ departure.title }}</h2>
                             <p class="card-text">{{ departure.description|truncatechars:90 }}</p>
-                            <a href="/tour/{{ key }}" class="btn btn-sm btn-primary">Подробнее</a>
+                            <a href="{% url 'tour' num %}" class="btn btn-sm btn-primary">Подробнее</a>
                         </div>
                     </div>
                 </div>

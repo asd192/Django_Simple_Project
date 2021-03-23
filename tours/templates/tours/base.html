@@ -13,7 +13,7 @@
 
 <header class="container mt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Stepik Travel</a>
+        <a class="navbar-brand" href="{% url 'main' %}">Stepik Travel</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,9 +21,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
 
-                {% for url, sity in menu_header.items %}
-                    <li class="nav-item{% if url in request.path %} active{% endif %}">
-                        <a class="nav-link" href="/departure/{{ url }}/">{{ sity }}</a>
+                {% for city_code, sity in menu_header.items %}
+                    <li class="nav-item{% if city_code in request.path %} active{% endif %}">
+                        <a class="nav-link" href="{% url 'departure' city_code %}">{{ sity }}</a>
                     </li>
                 {% endfor %}
 
