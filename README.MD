@@ -1,1 +1,1 @@
-https://stepik-project-tour.herokuapp.com/
+https://django-simple-project-001.herokuapp.com/
